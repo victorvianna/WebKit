@@ -209,6 +209,23 @@ typedef NS_ENUM(NSInteger, _UIDataOwner) {
 
 #if __has_include(<UIFoundation/NSTextTable.h>) && (!PLATFORM(MACCATALYST) || __has_include(<UIKit/NSTextTable.h>))
 #import <UIFoundation/NSTextTable.h>
+#elif __has_include(<UIKit/NSTextTable.h>)
+#import <UIKit/NSTextTable.h>
+
+@interface NSTextBlock (UIKitSPI)
+- (void)setWidth:(CGFloat)val type:(NSTextBlockValueType)type forLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
+- (void)setBorderColor:(UIColor *)color forEdge:(NSRectEdge)edge;
+- (CGFloat)widthForLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
+@end
+
+@interface NSTextTable (UIKitSPI)
+- (UIColor *)borderColorForEdge:(NSRectEdge)edge;
+@end
+
+@interface NSTextTableBlock (UIKitSPI)
+- (UIColor *)borderColorForEdge:(NSRectEdge)edge;
+@end
+
 #else
 
 typedef NS_ENUM(NSUInteger, NSTextBlockValueType) {

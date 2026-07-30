@@ -29,7 +29,7 @@ private import TestWebKitAPILibrary
 import struct Swift.String
 import struct Foundation.URL
 
-#if compiler(>=6.4)
+#if compiler(>=6.4) && ENABLE_CXX_INTEROP
 
 @MainActor
 struct UserContentControllerTests {

@@ -151,7 +151,7 @@ typedef CGSize NSSize;
 #define NSMaxY CGRectGetMaxY
 #endif
 
-#ifndef WK_HAS_DEFINED_NS_RECT_EDGE
+#if !defined(NSRectEdgeMinX) && !defined(WK_HAS_DEFINED_NS_RECT_EDGE) && !__has_include(<UIKit/NSTextTable.h>)
 typedef NS_ENUM(NSUInteger, NSRectEdge) {
 #ifndef NSMinXEdge
     NSMinXEdge = CGRectMinXEdge,
@@ -171,6 +171,19 @@ typedef NS_ENUM(NSUInteger, NSRectEdge) {
     NSRectEdgeMaxY = CGRectMaxYEdge,
 };
 #define WK_HAS_DEFINED_NS_RECT_EDGE 1
+#else
+#ifndef NSMinXEdge
+#define NSMinXEdge ((NSRectEdge)CGRectMinXEdge)
+#endif
+#ifndef NSMinYEdge
+#define NSMinYEdge ((NSRectEdge)CGRectMinYEdge)
+#endif
+#ifndef NSMaxXEdge
+#define NSMaxXEdge ((NSRectEdge)CGRectMaxXEdge)
+#endif
+#ifndef NSMaxYEdge
+#define NSMaxYEdge ((NSRectEdge)CGRectMaxYEdge)
+#endif
 #endif // !defined(WK_HAS_DEFINED_NS_RECT_EDGE)
 
 @interface NSValue (NSGeometryDetails)
